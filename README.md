@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🚗 Smart Neighbourhood Parking Sharing App
+# 🚗 Smart Neighbourhood Parking Sharing Application
 
-### A real-time, community-driven parking platform that connects neighbours with unused parking spots to drivers who need them.
+### A full-stack React Native mobile app that connects residents who have unused parking spots with drivers who need them — with dual-role dashboards, bulk booking, heatmap visualization, and integrated payments.
 
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
@@ -17,22 +17,46 @@
 
 ## 📖 About The Project
 
-Urban parking is a daily struggle — drivers circle blocks for minutes while nearby residents have empty driveways sitting unused. The **Smart Neighbourhood Parking Sharing App** bridges that gap by enabling residents to list their unused parking spots and allowing drivers to discover, book, and navigate to them in real time.
+Urban neighbourhoods have two problems happening at the same time — drivers circling streets looking for parking, and residents with empty driveways they never use. The **Smart Neighbourhood Parking Sharing App** solves both.
 
-Built as a full-stack mobile application, this project integrates live location tracking, dynamic pricing, booking management, and an interactive heatmap — all wrapped in a secure, JWT-authenticated platform.
+Built as an MCA Main Project at College of Engineering Chengannur (APJ Abdul Kalam Technological University), this is a full-stack mobile application with a **dual-role system**: users can sign up as a **Host** (space owner) or as a **Driver** (space seeker), each getting their own tailored dashboard and feature set.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-- 🗺️ **Real-Time Location & Map Integration** — live map view showing nearby available spots
-- 📍 **Spot Listing by Residents** — homeowners can list, price, and manage their spots
-- 📅 **Booking Management** — book, cancel, and track reservation status in real time
-- 💰 **Dynamic Pricing** — pricing adjusts based on demand and availability
-- 🔥 **Heatmap Visualization** — visual hotspot view of high-demand parking zones
-- 🔐 **JWT Authentication** — secure login/signup with token-based session management
-- 🔔 **Booking Notifications** — real-time updates for booking confirmations and cancellations
-- 📱 **Cross-Platform** — runs on both Android and iOS via Expo
+### 👥 Dual Role System
+- **Role Selection** at onboarding — choose to be a Host or a Driver
+- Separate dedicated dashboards per role
+
+### 🏠 Host Features
+- Add and manage parking space listings
+- View and respond to booking requests
+- Manage host profile and preferences
+- Track booking history
+
+### 🚗 Driver Features
+- Browse and search available parking spots
+- View detailed spot information
+- Book individual spots or use **Bulk Booking** for multiple spots
+- View bulk search results
+- Save favourite spots for quick access
+- View full booking history and individual booking details
+
+### 🗺️ Maps & Visualization
+- Real-time map view of available nearby spots
+- **Heatmap visualization** of high-demand parking zones in the neighbourhood
+
+### 💳 Payments
+- Integrated payments screen for booking transactions
+
+### 🔐 Authentication
+- User registration and login
+- JWT-based session management
+- Personal details management
+
+### 🛟 Support
+- In-app Help Center screen
 
 ---
 
@@ -42,58 +66,80 @@ Built as a full-stack mobile application, this project integrates live location 
 |---|---|
 | **Frontend** | React Native, Expo |
 | **Backend** | Node.js, Express.js |
-| **Database** | MongoDB (NoSQL) |
+| **Database** | MongoDB |
 | **Authentication** | JWT (JSON Web Tokens) |
 | **API Design** | RESTful APIs |
-| **Maps & Location** | Real-time GPS, Map APIs |
-| **Data Visualization** | Heatmap Overlay |
+| **Maps & Location** | Real-time GPS, Map integration |
+| **Data Visualization** | Heatmap overlay |
 
 ---
 
 ## 🏗️ System Architecture
 
 ```
-┌───────────────────────────────────┐
-│        React Native App           │
-│  (Expo | Maps | Booking UI)       │
-└────────────────┬──────────────────┘
-                 │ REST API calls (HTTPS)
-┌────────────────▼──────────────────┐
-│        Node.js + Express.js       │
-│  (Routes | Controllers | Middleware│
-│         JWT Auth Guard)           │
-└────────────────┬──────────────────┘
-                 │
-┌────────────────▼──────────────────┐
-│              MongoDB              │
-│  Users | Spots | Bookings | Pricing│
-└───────────────────────────────────┘
+┌────────────────────────────────────────┐
+│         React Native App (Expo)        │
+│                                        │
+│  Host Flow          Driver Flow        │
+│  ─────────────      ─────────────      │
+│  HostDashboard      UserDashboard      │
+│  AddSpace           SpotDetails        │
+│  HostProfile        BulkBooking        │
+│  HostPreferences    SavedSpots         │
+│  RequestDetails     UserBookingHistory │
+│  BookingHistory     Payments           │
+└──────────────┬─────────────────────────┘
+               │ REST API (HTTP/JSON + JWT)
+┌──────────────▼─────────────────────────┐
+│       Node.js + Express.js Backend     │
+│   Routes · Controllers · JWT Middleware│
+└──────────────┬─────────────────────────┘
+               │
+┌──────────────▼─────────────────────────┐
+│               MongoDB                  │
+│  Users · Spots · Bookings · Payments   │
+└────────────────────────────────────────┘
 ```
 
 ---
 
-## 📡 API Endpoints
+## 📂 Project Structure
 
-### Auth Routes
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register a new user |
-| POST | `/api/auth/login` | Login and receive JWT |
-
-### Parking Spot Routes
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/spots` | Get all available spots |
-| POST | `/api/spots` | List a new parking spot |
-| PUT | `/api/spots/:id` | Update spot details |
-| DELETE | `/api/spots/:id` | Remove a spot listing |
-
-### Booking Routes
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/bookings` | Create a new booking |
-| GET | `/api/bookings/:userId` | Get user's booking history |
-| PUT | `/api/bookings/:id/cancel` | Cancel a booking |
+```
+Smart-Neighbourhood-Parking-Sharing-Application/
+├── src/
+│   └── screens/
+│       ├── RoleSelectionScreen.js     # Onboarding — choose Host or Driver
+│       ├── Login.js                   # User login
+│       ├── Register.js                # New user registration
+│       ├── PersonalDetails.js         # User profile info
+│       │
+│       ├── HostDashboard.js           # Main dashboard for Hosts
+│       ├── AddSpace.js                # Add a new parking spot listing
+│       ├── HostProfile.js             # Host profile management
+│       ├── HostPreferences.js         # Host settings and preferences
+│       ├── RequestDetails.js          # View and manage booking requests
+│       ├── BookingHistory.js          # Host booking history
+│       │
+│       ├── UserDashboard.js           # Main dashboard for Drivers
+│       ├── ParkingSpaceDetails.js     # Full details of a listing
+│       ├── SpotDetails.js             # Spot view with map
+│       ├── BulkBooking.js             # Book multiple spots at once
+│       ├── BulkSearchResults.js       # Results from bulk search
+│       ├── SavedSpots.js              # Driver's saved/favourite spots
+│       ├── UserBookingHistory.js      # Driver's full booking history
+│       ├── UserBookingDetails.js      # Individual booking detail view
+│       ├── Payments.js                # Payment processing screen
+│       │
+│       ├── HeatmapDetail.js           # High-demand zone heatmap
+│       └── HelpCenter.js             # In-app support and FAQs
+│
+├── src/config.js                      # API base URL and app config
+├── App.js                             # Root component and navigation setup
+├── app.json                           # Expo configuration
+├── index.js                           # App entry point
+└── package.json                       # Dependencies
+```
 
 ---
 
@@ -101,93 +147,80 @@ Built as a full-stack mobile application, this project integrates live location 
 
 ### Prerequisites
 - Node.js v18+
-- MongoDB (local or Atlas)
-- Expo CLI
-- Android/iOS emulator or Expo Go app
+- Expo CLI (`npm install -g expo-cli`)
+- MongoDB (local or MongoDB Atlas)
+- Expo Go app on your phone (for testing)
 
 ### Installation
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/arundhathym/smart-parking-app.git
-cd smart-parking-app
+git clone https://github.com/arundhathym/Smart-Neighbourhood-Parking-Sharing-Application.git
+cd Smart-Neighbourhood-Parking-Sharing-Application
 ```
 
-**2. Install Backend Dependencies**
+**2. Install frontend dependencies**
 ```bash
-cd backend
 npm install
 ```
 
-**3. Configure Environment Variables**
+**3. Configure API base URL**
 
-Create a `.env` file in the `/backend` folder:
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
+Open `src/config.js` and update the backend URL:
+```js
+export const BASE_URL = "http://your-backend-ip:5000";
 ```
 
-**4. Start the Backend Server**
-```bash
-npm start
-```
-
-**5. Install Frontend Dependencies**
-```bash
-cd ../frontend
-npm install
-```
-
-**6. Start the Expo App**
+**4. Start the Expo app**
 ```bash
 npx expo start
 ```
 
-Scan the QR code with the **Expo Go** app on your phone or run on an emulator.
+Scan the QR code using **Expo Go** on your Android or iOS device.
 
----
+### Backend Setup
 
-## 📂 Folder Structure
+```bash
+# Navigate to your backend folder
+npm install
 
-```
-smart-parking-app/
-├── backend/
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── spotController.js
-│   │   └── bookingController.js
-│   ├── middleware/
-│   │   └── authMiddleware.js
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Spot.js
-│   │   └── Booking.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── spotRoutes.js
-│   │   └── bookingRoutes.js
-│   └── server.js
-├── frontend/
-│   ├── components/
-│   ├── screens/
-│   │   ├── HomeScreen.js
-│   │   ├── MapScreen.js
-│   │   ├── BookingScreen.js
-│   │   └── ProfileScreen.js
-│   ├── navigation/
-│   └── App.js
-└── README.md
+# Create .env file
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+
+# Start the server
+npm start
 ```
 
 ---
 
-## 🔐 Security Features
+## 📱 App Flow
 
-- Password hashing with **bcrypt**
-- Token-based session handling using **JWT**
-- Protected routes with authentication middleware
-- Environment variable management via `.env`
+```
+Launch App
+    │
+    ▼
+Role Selection ──► Host ──► Host Dashboard ──► Add Space
+                                           ──► View Requests
+                                           ──► Booking History
+    │
+    └──────────► Driver ──► User Dashboard ──► Browse Spots
+                                           ──► Bulk Booking
+                                           ──► Saved Spots
+                                           ──► Booking History
+                                           ──► Payments
+```
+
+---
+
+## 🔮 Future Scope
+
+- [ ] Real-time booking notifications (push notifications)
+- [ ] In-app chat between Host and Driver
+- [ ] Rating and review system for spots
+- [ ] Google Maps / location-based spot discovery
+- [ ] Admin dashboard for dispute management
 
 ---
 
@@ -195,8 +228,9 @@ smart-parking-app/
 
 **Arundhathy Mohan**
 MCA Graduate | Full Stack Developer
+College of Engineering Chengannur, APJ Abdul Kalam Technological University
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](http://www.linkedin.com/in/arundhathy-)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/arundhathy)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/arundhathym)
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=flat&logo=gmail&logoColor=white)](mailto:arundhathymohan2003@gmail.com)
 
@@ -209,5 +243,5 @@ This project is licensed under the MIT License.
 ---
 
 <div align="center">
-⭐ If you found this project interesting, give it a star!
+⭐ If you found this useful, give it a star!
 </div>
